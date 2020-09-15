@@ -3,32 +3,14 @@
 from requests import get
 
 
-def download_file(url):
-    """Downloads file from url"""
+def get_content(url, success_logs=True):
+    """Returns content from url"""
 
     # TODO: Validate url
     # TODO: Improve file_name extraction from url
     # TODO: Add HTTP headers support
     # TODO: Add folder support
     # TODO: Add unit tests
-
-    file_name = ''
-
-    if '/' in url:
-        file_name = url.split('/')[-1]
-
-    with open(file_name, 'wb') as file:
-        response = get(url)
-        if response.ok:
-            file.write(response.content)
-        else:
-            print('error ' + str(response.status_code))
-
-    return file_name
-
-
-def get_content(url, success_logs=True):
-    """Returns content from url"""
 
     if url:
         try:
@@ -48,6 +30,20 @@ def get_content(url, success_logs=True):
 
         return ''
 
+
+def download_file(url):
+    """Downloads file from url"""
+
+    file_name = ''
+
+    if '/' in url:
+        file_name = url.split('/')[-1]
+
+    with open(file_name, 'wb') as file:
+        content = get_content(url, success_logs=False)
+        file.write(content)
+
+    return file_name
 
 
 def main():
