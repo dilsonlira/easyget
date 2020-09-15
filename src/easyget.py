@@ -27,6 +27,29 @@ def download_file(url):
     return file_name
 
 
+def get_content(url, success_logs=True):
+    """Returns content from url"""
+
+    if url:
+        try:
+            response = get(url)
+            if response.ok:
+                content = response.content
+                if success_logs:
+                    print(url)
+                    print(f'{len(content)} bytes successfully received.')
+
+                return content
+
+            print(f'Error {response.status_code}')
+        
+        except:
+            print('Connection Error')
+
+        return ''
+
+
+
 def main():
     """ """
 
