@@ -39,11 +39,15 @@ def download_file(url):
     if '/' in url:
         file_name = url.split('/')[-1]
 
-    with open(file_name, 'wb') as file:
+    data_folder = 'data/'
+
+    file_path = data_folder + file_name
+
+    with open(file_path, 'wb') as file:
         content = get_content(url, success_logs=False)
         file.write(content)
 
-    return file_name
+    return file_path
 
 
 def main():
